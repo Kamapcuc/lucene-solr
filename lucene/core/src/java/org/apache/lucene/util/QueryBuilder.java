@@ -275,7 +275,6 @@ public class QueryBuilder {
           } else {
             // multiple positions
             BooleanQuery q = newBooleanQuery(false);
-            Query currentQuery = null;
             for (int i = 0; i < numTokens; i++) {
               try {
                 boolean hasNext = buffer.incrementToken();
@@ -284,21 +283,9 @@ public class QueryBuilder {
               } catch (IOException e) {
                 // safe to ignore, because we know the number of tokens
               }
-              if (posIncrAtt != null && posIncrAtt.getPositionIncrement() == 0) {
-                if (!(currentQuery instanceof BooleanQuery)) {
-                  Query t = currentQuery;
-                  currentQuery = newBooleanQuery(true);
-                  ((BooleanQuery)currentQuery).add(t, BooleanClause.Occur.SHOULD);
-                }
-                ((BooleanQuery)currentQuery).add(newTermQuery(new Term(field, BytesRef.deepCopyOf(bytes))), BooleanClause.Occur.SHOULD);
-              } else {
-                if (currentQuery != null) {
-                  q.add(currentQuery, operator);
-                }
-                currentQuery = newTermQuery(new Term(field, BytesRef.deepCopyOf(bytes)));
-              }
+              Query currentQuery = newTermQuery(new Term(field, BytesRef.deepCopyOf(bytes)));
+              q.add(currentQuery, operator);
             }
-            q.add(currentQuery, operator);
             return q;
           }
         } else {
