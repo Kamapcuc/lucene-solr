@@ -96,7 +96,8 @@ public class TestBackwardsCompatibility extends LuceneTestCase {
   // <sysproperty> under the "test-macro" <macrodef>.
   //
   // Be sure to create the indexes with the actual format:
-  //  ant test -Dtestcase=TestBackwardsCompatibility -Dversion=x.y.z -Dtests.codec=LuceneXY -Dtests.postingsformat=LuceneXY -Dtests.docvaluesformat=LuceneXY
+  //  ant test -Dtestcase=TestBackwardsCompatibility -Dversion=x.y.z
+  //      -Dtests.codec=LuceneXY -Dtests.postingsformat=LuceneXY -Dtests.docvaluesformat=LuceneXY
   //
   // Zip up the generated indexes:
   //
@@ -267,9 +268,7 @@ public class TestBackwardsCompatibility extends LuceneTestCase {
                                     "410.cfs",
                                     "410.nocfs",
                                     "4101.cfs",
-                                    "4101.nocfs",
-                                    "4102.cfs",
-                                    "4102.nocfs",
+                                    "4101.nocfs"
   };
   
   final String[] unsupportedNames = {"19.cfs",
